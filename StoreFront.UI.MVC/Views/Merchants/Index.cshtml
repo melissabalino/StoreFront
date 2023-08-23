@@ -1,0 +1,71 @@
+﻿@model IEnumerable<StoreFront.Data.EF.Models.Merchant>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantAddress1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantAddress2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantZip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MerchantPhone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantAddress1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantAddress2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantZip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantPhone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MerchantId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MerchantId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MerchantId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
