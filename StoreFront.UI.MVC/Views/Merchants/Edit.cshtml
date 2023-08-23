@@ -1,0 +1,64 @@
+﻿@model StoreFront.Data.EF.Models.Merchant
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Merchant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MerchantId" />
+            <div class="form-group">
+                <label asp-for="MerchantName" class="control-label"></label>
+                <input asp-for="MerchantName" class="form-control" />
+                <span asp-validation-for="MerchantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantAddress1" class="control-label"></label>
+                <input asp-for="MerchantAddress1" class="form-control" />
+                <span asp-validation-for="MerchantAddress1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantAddress2" class="control-label"></label>
+                <input asp-for="MerchantAddress2" class="form-control" />
+                <span asp-validation-for="MerchantAddress2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantCity" class="control-label"></label>
+                <input asp-for="MerchantCity" class="form-control" />
+                <span asp-validation-for="MerchantCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantState" class="control-label"></label>
+                <input asp-for="MerchantState" class="form-control" />
+                <span asp-validation-for="MerchantState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantZip" class="control-label"></label>
+                <input asp-for="MerchantZip" class="form-control" />
+                <span asp-validation-for="MerchantZip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MerchantPhone" class="control-label"></label>
+                <input asp-for="MerchantPhone" class="form-control" />
+                <span asp-validation-for="MerchantPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
