@@ -8,17 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <Content Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="wwwroot\about.html" />
     <Content Remove="wwwroot\assets\css\style.css" />
     <Content Remove="wwwroot\assets\img\about.jpg" />
-    <Content Remove="wwwroot\assets\img\apple-touch-icon.png" />
     <Content Remove="wwwroot\assets\img\blog\blog-1.jpg" />
     <Content Remove="wwwroot\assets\img\blog\blog-2.jpg" />
     <Content Remove="wwwroot\assets\img\blog\blog-3.jpg" />
@@ -44,7 +36,6 @@
     <Content Remove="wwwroot\assets\img\clients\client-6.png" />
     <Content Remove="wwwroot\assets\img\clients\client-7.png" />
     <Content Remove="wwwroot\assets\img\clients\client-8.png" />
-    <Content Remove="wwwroot\assets\img\favicon.png" />
     <Content Remove="wwwroot\assets\img\portfolio\portfolio-1.jpg" />
     <Content Remove="wwwroot\assets\img\portfolio\portfolio-2.jpg" />
     <Content Remove="wwwroot\assets\img\portfolio\portfolio-3.jpg" />
@@ -55,9 +46,6 @@
     <Content Remove="wwwroot\assets\img\portfolio\portfolio-8.jpg" />
     <Content Remove="wwwroot\assets\img\portfolio\portfolio-9.jpg" />
     <Content Remove="wwwroot\assets\img\skills-img.jpg" />
-    <Content Remove="wwwroot\assets\img\slide\slide-1.jpg" />
-    <Content Remove="wwwroot\assets\img\slide\slide-2.jpg" />
-    <Content Remove="wwwroot\assets\img\slide\slide-3.jpg" />
     <Content Remove="wwwroot\assets\img\team\team-1.jpg" />
     <Content Remove="wwwroot\assets\img\team\team-2.jpg" />
     <Content Remove="wwwroot\assets\img\team\team-3.jpg" />
@@ -169,13 +157,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\about.html" />
     <None Include="wwwroot\assets\css\style.css" />
     <None Include="wwwroot\assets\img\about.jpg" />
-    <None Include="wwwroot\assets\img\apple-touch-icon.png" />
     <None Include="wwwroot\assets\img\blog\blog-1.jpg" />
     <None Include="wwwroot\assets\img\blog\blog-2.jpg" />
     <None Include="wwwroot\assets\img\blog\blog-3.jpg" />
@@ -201,7 +189,6 @@
     <None Include="wwwroot\assets\img\clients\client-6.png" />
     <None Include="wwwroot\assets\img\clients\client-7.png" />
     <None Include="wwwroot\assets\img\clients\client-8.png" />
-    <None Include="wwwroot\assets\img\favicon.png" />
     <None Include="wwwroot\assets\img\portfolio\portfolio-1.jpg" />
     <None Include="wwwroot\assets\img\portfolio\portfolio-2.jpg" />
     <None Include="wwwroot\assets\img\portfolio\portfolio-3.jpg" />
@@ -212,9 +199,6 @@
     <None Include="wwwroot\assets\img\portfolio\portfolio-8.jpg" />
     <None Include="wwwroot\assets\img\portfolio\portfolio-9.jpg" />
     <None Include="wwwroot\assets\img\skills-img.jpg" />
-    <None Include="wwwroot\assets\img\slide\slide-1.jpg" />
-    <None Include="wwwroot\assets\img\slide\slide-2.jpg" />
-    <None Include="wwwroot\assets\img\slide\slide-3.jpg" />
     <None Include="wwwroot\assets\img\team\team-1.jpg" />
     <None Include="wwwroot\assets\img\team\team-2.jpg" />
     <None Include="wwwroot\assets\img\team\team-3.jpg" />

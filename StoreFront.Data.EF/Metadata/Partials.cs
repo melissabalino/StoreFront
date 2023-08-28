@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
+
 namespace StoreFront.Data.EF.Models//.Metadata
 {
     //internal class Partials
@@ -34,7 +37,11 @@ namespace StoreFront.Data.EF.Models//.Metadata
     #region Product Partial
 
     [ModelMetadataType(typeof(ProductMetadata))]
-    public partial class Product { }
+    public partial class Product 
+    {
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+    }
 
     #endregion
 

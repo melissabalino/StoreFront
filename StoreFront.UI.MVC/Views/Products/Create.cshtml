@@ -1,7 +1,7 @@
 ﻿@model StoreFront.Data.EF.Models.Product
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add New Product";
 }
 
 <h1>Create</h1>
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
@@ -41,7 +41,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
+                @*<input asp-for="ProductImage" class="form-control" />*@
+                <input type="file" asp-for="Image" />
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
             </div>
             <div class="form-group">

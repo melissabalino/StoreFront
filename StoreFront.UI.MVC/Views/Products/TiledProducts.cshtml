@@ -1,0 +1,48 @@
+﻿@model IEnumerable<StoreFront.Data.EF.Models.Product>
+
+@{
+    ViewData["Title"] = "Tiled Products";
+}
+
+<h1>Our Products</h1>
+<p>
+    <a asp-action="Create">Add New Product</a>
+    <a asp-action="Index">Table View</a>
+</p>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="box">
+                <div class="option_container">
+                    <div class="options">
+                        <a asp-action="Details" asp-route-id="@item.ProductId" class="option1">
+                            @item.ProductName
+                        </a>
+                        <a href="javascript:void(0)" class="option2">
+                            Add to Cart
+                        </a>
+                    </div>
+
+                    <div class="img-box">
+                        <img src="~/assets/img/products/@item.ProductImage" alt="@item.ProductName" longdesc="@item.ProductDescription" />
+                    </div>
+
+                    <div class="detail-box">
+                        <h5>
+                            @item.ProductName
+                        </h5>
+                        <h6>
+                            @Html.DisplayFor(modelItem => item.ProductPrice)
+                        </h6>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
