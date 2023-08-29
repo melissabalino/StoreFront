@@ -88,18 +88,36 @@ namespace StoreFront.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                #region File Upload - CREATE
+                //Check if a file was uploaded
                 if (product.Image != null)
                 {
+                    //Check the file type of the image by retrieving the extension
                     string ext = Path.GetExtension(product.Image.FileName);
+
+                    //Create a list of valid extensions to check against
                     string[] validExts = { ".jpeg", ".jpg", ".gif", ".png" };
+
+                    //Verify that the uploaded file has one of the appropriate extensions listed above
                     if (validExts.Contains(ext.ToLower()) && product.Image.Length < 4_194_303)
                     {
+                        //Generate a unique file name for the image
                         product.ProductImage = Guid.NewGuid() + ext;
+
+                        //Save the file to the web server
+                        //Retrieve the path to the wwwroot
                         string webRootPath = _webHostEnvironment.WebRootPath;
+
+                        //Create the path for where we want to save the images
                         string fullImagePath = webRootPath + "/assets/img/products/";
+
+                        //Create a MemoryStream to read the image into server memory
                         using (var memoryStream = new MemoryStream())
                         {
+                            //Transfer the file from the request into server memory
                             await product.Image.CopyToAsync(memoryStream);
+
+                            //Create a copy of the image so we can manipulate and save it as needed
                             using (var img = Image.FromStream(memoryStream))
                             {
                                 int maxImageSize = 500;
@@ -112,10 +130,9 @@ namespace StoreFront.UI.MVC.Controllers
                 }
                 else
                 {
-
                     product.ProductImage = "noimage.png";
                 }
-
+                #endregion
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
@@ -153,7 +170,7 @@ namespace StoreFront.UI.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice,ProductDescription,ProductStatusId,SeasonId,MerchantId,ProductImage,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice,ProductDescription,ProductStatusId,SeasonId,MerchantId,ProductImage,Image,CategoryId")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -162,6 +179,51 @@ namespace StoreFront.UI.MVC.Controllers
 
             if (ModelState.IsValid)
             {
+                #region File Upload - EDIT
+                //Retain the old image file name so we can delete it if a new file was uploaded
+                string oldImageName = product.ProductImage;
+                
+                //Check to see if the user uploaded a file
+                if (product.Image != null)
+                {
+                    //Get the file extension
+                    string ext = Path.GetExtension(product.Image.FileName);
+                    
+                    //Create a list of valid exts
+                    string[] validExts = { ".jpeg", ".jpg", ".png", ".gif" };
+                    
+                    //Check to ensure the extension is good and the image isn't too big
+                    if (validExts.Contains(ext.ToLower()) && product.Image.Length < 4_194_303)
+                    {
+                        //Generate a unique file name
+                        product.ProductImage = Guid.NewGuid() + ext;
+                        
+                        //Build our file path to save the image
+                        string webRootPath = _webHostEnvironment.WebRootPath;
+                        string fullPath = webRootPath + "/assets/img/products/";
+
+                        //Delete the old image
+                        if (oldImageName != "noimage.png")
+                        {
+                            ImageUtility.Delete(fullPath, oldImageName);
+                        }
+
+                        //Save the new image
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await product.Image.CopyToAsync(memoryStream);
+                            using (var img = Image.FromStream(memoryStream))
+                            {
+                                int maxImageSize = 500;
+                                int maxThumbSize = 100;
+
+                                ImageUtility.ResizeImage(fullPath, product.ProductImage, img, maxImageSize, maxThumbSize);
+                            }
+                        }
+                    }
+                }
+                #endregion
+
                 try
                 {
                     _context.Update(product);

@@ -128,34 +128,37 @@ namespace StoreFront.Data.EF.Models//.Metadata
         public int ProductId { get; set; }
 
 
-        [Required(ErrorMessage = "* Product Required")]
+        [Required(ErrorMessage = "* Product Name is Required")]
         [StringLength(100, ErrorMessage = "* Must be 100 characters or less")]
-        [Display(Name = "Product")]
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; } = null!;
 
 
-        [Required(ErrorMessage = "* Price Required")]
-        [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "* Price is Required")]
+        [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = false)]
         [Display(Name = "Price")]
         public decimal ProductPrice { get; set; }
 
 
-        [Required(ErrorMessage = "* Description Required")]
+        [Required(ErrorMessage = "* Description is Required")]
         [StringLength(500, ErrorMessage = "* Must be 500 characters or less")]
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string ProductDescription { get; set; } = null!;
-        
-        
+
+
         //Foreign Key
+        [Display(Name = "Status")]
         public int? ProductStatusId { get; set; }
 
 
         //Foreign Key
+        [Display(Name = "Seasonal Availability")]
         public int? SeasonId { get; set; }
 
 
         //Foreign Key
+        [Display(Name = "Merchant Name")]
         public int? MerchantId { get; set; }
 
 
@@ -165,6 +168,7 @@ namespace StoreFront.Data.EF.Models//.Metadata
 
 
         //Foreign Key
+        [Display(Name = "Category Name")]
         public int? CategoryId { get; set; }
     }
 

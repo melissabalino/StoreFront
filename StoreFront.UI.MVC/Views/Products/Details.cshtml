@@ -4,9 +4,30 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div style="text-align: center;">
+    <h1>@Model.ProductName Details</h1>
+</div>
 
-<div>
+<div class="row mb-3">
+    <div class="col-md-6 offset-md-3 text-center">
+        <img src="~/assets/img/products/@Model.ProductImage" alt="@Model.ProductName" longdesc="@Model.ProductDescription" class="img-fluid" width="48" height="48" />
+        <p class="text-info mt-3">
+            @Html.DisplayFor(model => model.ProductName)
+        </p>
+    </div>
+
+    <div class="offset-md-3 col-md-3">
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.ProductPrice) :</strong>
+            @Html.DisplayFor(model => model.ProductPrice)
+        </p>
+    </div>
+
+</div>
+
+
+
+@*<div>
     <h4>Product</h4>
     <hr />
     <dl class="row">
@@ -59,7 +80,7 @@
             @Html.DisplayFor(model => model.Season.SeasonCategory)
         </dd>
     </dl>
-</div>
+</div>*@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> |
     <a asp-action="Index">Back to Products</a>
