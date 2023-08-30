@@ -4,43 +4,45 @@
     ViewData["Title"] = "Tiled Products";
 }
 <div class="pt-3" style="text-align: center;">
-<h1>Our Products</h1>
-<p>
-    <a asp-action="Create">Add New Product</a>
-    <a asp-action="Index">Table View</a>
-</p>
+    <h1>Our Products</h1>
+    <p>
+        <a asp-action="Create">Add New Product</a>
+        <a asp-action="Index">Table View</a>
+    </p>
 </div>
 
-<div class="row mx-auto m-5 prodview">
-    @foreach (var item in Model)
-    {
-        <div class="mx-auto pt-3 pb-3 col-sm-4 col-md-3 col-lg-2 col-centered text-center border border-success" style="border-radius: 25px 25px;">
-            <div class="box">
-                <div class="option_container">
+<div class="container">
+    <div class="row mx-auto m-5 prodview">
+        @foreach (var item in Model)
+        {
+            <div class="mx-auto pt-3 pb-3 col-sm-4 col-md-3 col-lg-2 col-centered text-center border" style="border-radius: 25px 25px;">
+                <div class="box">
+                    <div class="option_container">
 
-                    <div class="img-box">
-                        <img src="~/assets/img/products/@item.ProductImage" alt="@item.ProductName" longdesc="@item.ProductDescription"/>
-                    </div>
-                    <div class="options">
-                        <a asp-action="Details" asp-route-id="@item.ProductId" class="option1">
-                            @item.ProductName
-                        </a>
-                    </div>
+                        <div class="img-box">
+                            <img src="~/assets/img/products/@item.ProductImage" alt="@item.ProductName" longdesc="@item.ProductDescription" />
+                        </div>
+                        <div class="options">
+                            <a asp-action="Details" asp-route-id="@item.ProductId" class="option1">
+                                @item.ProductName
+                            </a>
+                        </div>
 
-                    <div class="detail-box">
-                      
-                        <h6>
-                            @Html.DisplayFor(modelItem => item.ProductPrice)
-                        </h6>
-                        <a href="javascript:void(0)" class="option2 btn btn-warning" style="font-size: 14px;">
-                            Add to Cart
-                        </a>
-                    </div>
+                        <div class="detail-box">
 
+                            <h6>
+                                @Html.DisplayFor(modelItem => item.ProductPrice)
+                            </h6>
+                            <a href="javascript:void(0)" class="option2 btn btn-warning" style="font-size: 14px;">
+                                Add to Cart
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 
