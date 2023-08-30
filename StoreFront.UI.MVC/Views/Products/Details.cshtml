@@ -4,15 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
+
 <div style="text-align: center;">
-    <h1>@Model.ProductName Details</h1>
+    <h1 class="pt-5">@Model.ProductName Details</h1>
 </div>
 
-<div class="row mb-3">
+<div class="row">
     <div class="col-md-6 offset-md-3 text-center">
         <img src="~/assets/img/products/@Model.ProductImage" alt="@Model.ProductName" longdesc="@Model.ProductDescription" class="img-fluid" width="48" height="48" />
-        <p class="text-info mt-3">
-            @Html.DisplayFor(model => model.ProductName)
+        <p class="text-info mt-3" style="color: rgb(34, 123, 141);">
+            @Html.DisplayFor(model => model.ProductDescription)
         </p>
     </div>
 
@@ -21,67 +22,30 @@
             <strong>@Html.DisplayNameFor(model => model.ProductPrice) :</strong>
             @Html.DisplayFor(model => model.ProductPrice)
         </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.ProductStatus.StatusName) :</strong>
+            @Html.DisplayFor(model => model.ProductStatus.StatusName)
+        </p>
+      @*  <p>
+            <strong>@Html.DisplayNameFor(model => model.Category.CategoryName) :</strong>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </p>*@
     </div>
 
-</div>
-
-
-
-@*<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductImage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Merchant)
-        </dt>
-        <dd class = "col-sm-10">
+    <div class="col-md-5">
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Merchant.MerchantName) :</strong>
             @Html.DisplayFor(model => model.Merchant.MerchantName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductStatus.StatusName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Season)
-        </dt>
-        <dd class = "col-sm-10">
+        </p>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Season.SeasonCategory) :</strong>
             @Html.DisplayFor(model => model.Season.SeasonCategory)
-        </dd>
-    </dl>
-</div>*@
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> |
-    <a asp-action="Index">Back to Products</a>
+        </p>
+    </div>
 </div>
+
+<div class="col-12 col-md-6 offset-md-3 mb-3 pb-5">
+    @*<a asp-action="Edit" asp-route-id="@Model?.ProductId">Edit</a> |*@
+    <a asp-action="Index" class="btn btn-primary w-100 d-inline-block">Back to Products</a>
+</div>
+

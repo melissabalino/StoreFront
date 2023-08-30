@@ -37,17 +37,17 @@ h6 {
 # Back to top button
 --------------------------------------------------------------*/
 .back-to-top {
-  position: fixed;
-  visibility: hidden;
-  opacity: 0;
-  right: 15px;
-  bottom: 15px;
-  z-index: 996;
-  background: #e96b56;
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  transition: all 0.4s;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 996;
+    background: #75f9df;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all 0.4s;
 }
 
 .back-to-top i {
@@ -75,10 +75,10 @@ h6 {
   font-size: 14px;
 }
 
-#topbar .contact-info i {
-  font-style: normal;
-  color: #e96b56;
-}
+    #topbar .contact-info i {
+        font-style: normal;
+        color: #75f9df;
+    }
 
 #topbar .contact-info i a,
 #topbar .contact-info i span {
@@ -91,9 +91,9 @@ h6 {
   transition: 0.3s;
 }
 
-#topbar .contact-info i a:hover {
-  color: #e96b56;
-}
+    #topbar .contact-info i a:hover {
+        color: #75f9df;
+    }
 
 #topbar .social-links a {
   color: #bababa;
@@ -118,17 +118,17 @@ h6 {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
-#header .logo h1 {
-  font-size: 26px;
-  padding: 0 0 0 8px;
-  margin: 11px 0;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  border-left: 8px solid #e96b56;
-}
+    #header .logo h1 {
+        font-size: 26px;
+        padding: 0 0 0 8px;
+        margin: 11px 0;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-family: "Poppins", sans-serif;
+        border-left: 8px solid #75f9df;
+    }
 
 #header .logo h1 a,
 #header .logo h1 a:hover {
@@ -195,14 +195,14 @@ h6 {
   color: #e96b56;
 }
 
-.navbar .getstarted,
-.navbar .getstarted:focus {
-  background: #e96b56;
-  padding: 8px 20px;
-  margin-left: 30px;
-  border-radius: 4px;
-  color: #fff;
-}
+    .navbar .getstarted,
+    .navbar .getstarted:focus {
+        background: #75f9df;
+        padding: 8px 20px;
+        margin-left: 30px;
+        border-radius: 4px;
+        color: #fff;
+    }
 
 .navbar .getstarted:hover,
 .navbar .getstarted:focus:hover {

@@ -198,9 +198,9 @@ namespace StoreFront.Data.EF.Models//.Metadata
         public int SeasonId { get; set; }
 
 
-        [Required(ErrorMessage = "* Category")]
+        [Required(ErrorMessage = "* Season")]
         [StringLength(50, ErrorMessage = "* Must be 50 characters or less")]
-        [Display(Name = "Category")]
+        [Display(Name = "Season")]
         public string SeasonCategory { get; set; } = null!;
 
 

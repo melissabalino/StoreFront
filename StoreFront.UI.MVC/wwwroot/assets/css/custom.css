@@ -3,5 +3,8 @@ select.form-control {
     appearance: auto;
 }
 
-/* Product/Detail */
 
+/*product tile view*/
+.prodview {
+    background-color: rgb(128, 128, 128);
+}
