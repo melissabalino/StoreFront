@@ -54,7 +54,8 @@
                 @Html.DisplayFor(modelItem => item.ProductDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
+                <img src="~/assets/img//products/t_@item.ProductImage" alt="@item.ProductName"/>
+                @*@Html.DisplayFor(modelItem => item.ProductImage)*@
             </td>
           @*  <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)

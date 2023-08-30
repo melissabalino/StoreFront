@@ -120,8 +120,8 @@ namespace StoreFront.UI.MVC.Controllers
                             //Create a copy of the image so we can manipulate and save it as needed
                             using (var img = Image.FromStream(memoryStream))
                             {
-                                int maxImageSize = 500;
-                                int maxThumbSize = 100;
+                                int maxImageSize = 48;
+                                int maxThumbSize = 48;
 
                                 ImageUtility.ResizeImage(fullImagePath, product.ProductImage, img, maxImageSize, maxThumbSize);
                             }
@@ -214,8 +214,8 @@ namespace StoreFront.UI.MVC.Controllers
                             await product.Image.CopyToAsync(memoryStream);
                             using (var img = Image.FromStream(memoryStream))
                             {
-                                int maxImageSize = 500;
-                                int maxThumbSize = 100;
+                                int maxImageSize = 48;
+                                int maxThumbSize = 48;
 
                                 ImageUtility.ResizeImage(fullPath, product.ProductImage, img, maxImageSize, maxThumbSize);
                             }
