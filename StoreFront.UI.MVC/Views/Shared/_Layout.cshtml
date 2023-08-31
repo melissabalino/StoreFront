@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -57,7 +60,7 @@
                     <li><a href="about.html">About</a></li>
                    
                     <li class="dropdown">
-                        <a href="@Url.Action("Index", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="#">Lawn & Garden</a></li>
                             <li><a href="#">Grocery</a></li>
@@ -69,22 +72,31 @@
                             <li><a href="#">Clothing</a></li>
                             <li><a href="#">Resources</a></li>
                             <li><a href="#">Livestock</a></li>
-                            <li><a href="@Url.Action("Index", "Products")">Shop All</a></li>
+                            <li><a href="@Url.Action("TiledProducts", "Products")">Shop All</a></li>
                         </ul>
                     </li>
-                   
+                   @if (signInManager.IsSignedIn(User))
+                    {
+                        
                     <li><a href="@Url.Action("Index", "Orders")">Orders</a></li>
+                    }
 
                     <li><a href="#"><i class="bi bi-cart" style="font-size: 18px"></i></a></li>
-
+                    @if (User.IsInRole("Admin"))
+                    {
+                        
                     <li class="dropdown">
                         <a href="#"><span>Manage</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
+                            <li><a asp-action="ListUsers" asp-controller="Administration">Users</a></li>
+                            <li><a asp-action="ListRoles" asp-controller="Administration">Roles</a></li>
+                            <li><a asp-action="Index" asp-controller="Categories">Categories</a></li>
                             <li><a href="@Url.Action("Index", "Merchants")">Merchants</a></li>
                             <li><a href="@Url.Action("Index", "ProductStatus")">Product Status</a></li>
                             <li><a href="@Url.Action("Index", "SeasonalAvailabilities")">Seasonal Availabilities</a></li>
                         </ul>
                     </li>
+                    }
                    
 
                     <li><partial name="_LoginPartial" /></li>

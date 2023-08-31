@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StoreFront.Data.EF.Models;
+using Microsoft.AspNetCore.Authorization; 
 using System.Drawing;
 using StoreFront.UI.MVC.Utilities;
 
 namespace StoreFront.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly StoreFrontContext _context;
@@ -23,6 +25,7 @@ namespace StoreFront.UI.MVC.Controllers
         }
 
         // GET: Products
+       
         public async Task<IActionResult> Index()
         {
             //var storeFrontContext = _context.Products.Include(p => p.Category).Include(p => p.Merchant).Include(p => p.ProductStatus).Include(p => p.Season);
@@ -38,6 +41,7 @@ namespace StoreFront.UI.MVC.Controllers
 
 
         // GET: Products/TiledProducts
+        [AllowAnonymous]
         public async Task<IActionResult> TiledProducts()
         {
             var products = _context.Products.Where(p => p.ProductStatusId != 5)
@@ -48,7 +52,8 @@ namespace StoreFront.UI.MVC.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int? id, string? prevAction)
         {
             if (id == null || _context.Products == null)
             {
@@ -64,6 +69,12 @@ namespace StoreFront.UI.MVC.Controllers
             if (product == null)
             {
                 return NotFound();
+            }
+
+            ViewBag.PrevAction = null;
+            if (prevAction == "Index")
+            {
+                ViewBag.PrevAction = prevAction;
             }
 
             return View(product);

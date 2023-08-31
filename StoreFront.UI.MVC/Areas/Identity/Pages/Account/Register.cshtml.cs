@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using StoreFront.Data.EF.Models;
 
 namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
 {
@@ -97,6 +98,54 @@ namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "* First Name is required")]
+            [StringLength(50, ErrorMessage = "* Must be 50 characters or less")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; } = null!;
+
+
+            [Required(ErrorMessage = "* Last Name is required")]
+            [StringLength(50, ErrorMessage = "* Must be 50 characters or less")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; } = null!;
+
+
+            [Required(ErrorMessage = "* Street Address Required")]
+            [StringLength(150, ErrorMessage = "* Must be 150 characters or less")]
+            [Display(Name = "Street Address 1")]
+            public string Address1 { get; set; } = null!;
+
+
+            [StringLength(150, ErrorMessage = "* Must be 150 characters or less")]
+            [Display(Name = "Street Address 2")]
+            public string? Address2 { get; set; }
+
+
+            [Required(ErrorMessage = "* City Required")]
+            [StringLength(50)]
+            [Display(Name = "City")]
+            public string City { get; set; } = null!;
+
+
+            [Required(ErrorMessage = "* State Required")]
+            [StringLength(2)]
+            [Display(Name = "State")]
+            public string State { get; set; } = null!;
+
+
+            [Required(ErrorMessage = "* Zip Code Required")]
+            [StringLength(5)]
+            [Display(Name = "Zip Code")]
+            [DataType(DataType.PostalCode)]
+            public string Zip { get; set; } = null!;
+
+
+            [StringLength(24)]
+            [Display(Name = "Phone Number")]
+            [DataType(DataType.PhoneNumber)]
+            public string Phone { get; set; } = null!;
+
         }
 
 
@@ -123,6 +172,28 @@ namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    #region Customer User Registration
+                    StoreFrontContext _context = new();
+
+                    UserDetail ud = new()
+                    {
+                        UserId = userId,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        Address1 = Input.Address1,
+                        Address2 = Input.Address2,
+                        City = Input.City,
+                        State = Input.State,
+                        Zip = Input.Zip,
+                        Phone = Input.Phone
+                    };
+
+                    _context.UserDetails.Add(ud); //add the userdetail object
+                    await _context.SaveChangesAsync(); //await so it can move on to the rest of the code
+
+                    #endregion
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
