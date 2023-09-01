@@ -13,7 +13,27 @@
         }
     </p>
 </div>
+<div class="row">
+    <div class="offset-3 col-md-6">
+        <form asp-action="TiledProducts" method="get">
+            <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control text-center" placeholder="Search Products..."/>
 
+            <label for="categoryId" class="control-label d-block text-center">Filter By Category</label>
+            <select name="categoryId" class="form-control text-center mb-3" asp-items="@ViewBag.CategoryId">
+                <option value="0">[Search by Category]</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary text-center mx-auto w-50 d-block">Search</button>
+        </form>
+
+        @if (ViewBag.NbrResults != null)
+        {
+            <p class="mt-5 p-2 alert-warning text-center">
+
+            </p>
+        }
+    </div>
+</div>
 <div class="container">
     <div class="row">
         @foreach (var item in Model)
@@ -36,7 +56,7 @@
                             <h6>
                                 @Html.DisplayFor(modelItem => item.ProductPrice)
                             </h6>
-                            <a href="javascript:void(0)" class="option2 btn btn-warning" style="font-size: 14px;">
+                            <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.ProductId" class="option2 btn btn-warning">
                                 Add to Cart
                             </a>
                         </div>

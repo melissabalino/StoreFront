@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Drawing;
 using StoreFront.UI.MVC.Utilities;
 
+
 namespace StoreFront.UI.MVC.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -50,6 +51,16 @@ namespace StoreFront.UI.MVC.Controllers
                 .Include(p => p.Season);
             return View(await products.ToListAsync());
         }
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> LawnAndGarden()
+        //{
+        //    var products = _context.Products.Where(p => p.ProductStatusId != 5 && p.CategoryId == 1)
+        //        .Include(p => p.Category)
+        //        .Include(p => p.Merchant)
+        //        .Include(p => p.Season);
+        //    return View(await products.ToListAsync());
+        //}
 
         // GET: Products/Details/5
         [AllowAnonymous]

@@ -57,7 +57,7 @@
                 <ul>
                     <li><a class="active" href="@Url.Action("Index","Home")">Home</a></li>
                     
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="@Url.Action("About","Home")">About</a></li>
                    
                     <li class="dropdown">
                         <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
@@ -81,7 +81,9 @@
                     <li><a href="@Url.Action("Index", "Orders")">Orders</a></li>
                     }
 
-                    <li><a href="#"><i class="bi bi-cart" style="font-size: 18px"></i></a></li>
+                    <li><a href="@Url.Action("Index","ShoppingCart")"><i class="bi bi-cart" style="font-size: 18px"></i></a></li>
+
+
                     @if (User.IsInRole("Admin"))
                     {
                         
@@ -114,22 +116,6 @@
     <!-- ======= Footer ======= -->
     <footer id="footer">
 
-        @* <div class="footer-newsletter">
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-6">
-        <h4>Our Newsletter</h4>
-        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-        </div>
-        <div class="col-lg-6">
-        <form action="" method="post">
-        <input type="email" name="email"><input type="submit" value="Subscribe">
-        </form>
-        </div>
-        </div>
-        </div>
-        </div>*@
-
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -137,9 +123,9 @@
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Departments</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("About","Home")">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("TiledProducts","Products")">Shop</a></li>
                            </ul>
                            </div>
                     <div class="col-lg-3 col-md-6 footer-links">
