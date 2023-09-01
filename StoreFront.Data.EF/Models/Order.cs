@@ -18,7 +18,7 @@ namespace StoreFront.Data.EF.Models
         public string ShipToState { get; set; } = null!;
         public string ShipToZip { get; set; } = null!;
 
-        public virtual UserDetail User { get; set; } = null!;
+        public virtual UserDetail? User { get; set; } = null!;
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@if (Model.Count()<1)
+{
+    @*add error message like you don't have orders*@
+}
+else
+{
+    
 <table class="table">
     <thead>
         <tr>
@@ -52,7 +60,7 @@
                 @Html.DisplayFor(modelItem => item.ShipToZip)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserId)
+                @Html.DisplayFor(modelItem => item.User.FullName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
@@ -63,3 +71,4 @@
 }
     </tbody>
 </table>
+}

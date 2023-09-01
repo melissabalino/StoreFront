@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Drawing;
 using StoreFront.UI.MVC.Utilities;
 
+using X.PagedList;
 
 namespace StoreFront.UI.MVC.Controllers
 {
@@ -43,13 +44,41 @@ namespace StoreFront.UI.MVC.Controllers
 
         // GET: Products/TiledProducts
         [AllowAnonymous]
-        public async Task<IActionResult> TiledProducts()
+        public async Task<IActionResult> TiledProducts(string searchTerm, int categoryId = 0, int page = 1)
         {
             var products = _context.Products.Where(p => p.ProductStatusId != 5)
                 .Include(p => p.Category)
                 .Include(p => p.Merchant)
-                .Include(p => p.Season);
-            return View(await products.ToListAsync());
+                .Include(p => p.Season)
+                .Include(p => p.OrderDetails).ToList();
+
+            #region Category Filter
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "CategoryName", categoryId);
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Category = 0;
+
+            if (categoryId != 0)
+            {
+                products = products.Where(p => p.CategoryId == categoryId).ToList();
+                ViewBag.Category = categoryId;
+            }
+            #endregion
+
+            #region search filter
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                products = products.Where(p =>
+                    p.ProductName.ToLower().Contains(searchTerm.ToLower())
+                    || p.Merchant.MerchantName.ToLower().Contains(searchTerm.ToLower())
+                    || p.Category.CategoryName.ToLower().Contains(searchTerm.ToLower())
+                    || p.ProductDescription.ToLower().Contains(searchTerm.ToLower())).ToList();
+                ViewBag.NbrResults = products.Count;
+                ViewBag.SearchTerm = searchTerm;
+
+            }
+            #endregion
+
+            return View(products.ToPagedList(page, 24));
         }
 
         //[AllowAnonymous]
@@ -142,7 +171,7 @@ namespace StoreFront.UI.MVC.Controllers
                             //Create a copy of the image so we can manipulate and save it as needed
                             using (var img = Image.FromStream(memoryStream))
                             {
-                                int maxImageSize = 48;
+                                int maxImageSize = 100;
                                 int maxThumbSize = 48;
 
                                 ImageUtility.ResizeImage(fullImagePath, product.ProductImage, img, maxImageSize, maxThumbSize);
@@ -236,7 +265,7 @@ namespace StoreFront.UI.MVC.Controllers
                             await product.Image.CopyToAsync(memoryStream);
                             using (var img = Image.FromStream(memoryStream))
                             {
-                                int maxImageSize = 48;
+                                int maxImageSize = 100;
                                 int maxThumbSize = 48;
 
                                 ImageUtility.ResizeImage(fullPath, product.ProductImage, img, maxImageSize, maxThumbSize);

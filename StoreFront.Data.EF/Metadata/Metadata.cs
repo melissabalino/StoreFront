@@ -96,7 +96,7 @@ namespace StoreFront.Data.EF.Models//.Metadata
 
         [Required(ErrorMessage = "* Ship To Required")]
         [StringLength(100, ErrorMessage = "* Must be 100 characters or less")]
-        [Display(Name = "Ship To")]
+        [Display(Name = "Name")]
         public string ShipToName { get; set; } = null!;
 
 
@@ -108,6 +108,7 @@ namespace StoreFront.Data.EF.Models//.Metadata
 
         [Required(ErrorMessage = "* State Required")]
         [StringLength(2, ErrorMessage = "* Must be 2 characters or less")]
+        [Display(Name = "State")]
         public string ShipToState { get; set; } = null!;
 
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,20 +11,28 @@ using StoreFront.Data.EF.Models;
 
 namespace StoreFront.UI.MVC.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly StoreFrontContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrdersController(StoreFrontContext context)
+        public OrdersController(StoreFrontContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var storeFrontContext = _context.Orders.Include(o => o.User);
-            return View(await storeFrontContext.ToListAsync());
+            string? userId = (await _userManager.GetUserAsync(HttpContext.User))?.Id;
+            var orders = _context.Orders.Include(o => o.User);
+            if (!User.IsInRole("Admin"))
+            {
+                return View(await orders.Where(x => x.UserId == userId).ToListAsync());
+            }
+            return View(await orders.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -150,6 +160,15 @@ namespace StoreFront.UI.MVC.Controllers
                 return Problem("Entity set 'StoreFrontContext.Orders'  is null.");
             }
             var order = await _context.Orders.FindAsync(id);
+
+            order.OrderDetails = _context.OrderDetails.Where(x => x.OrderId == id).ToList();
+
+            foreach (var item in order.OrderDetails)
+            {
+                _context.OrderDetails.Remove(item);
+            }
+
+
             if (order != null)
             {
                 _context.Orders.Remove(order);

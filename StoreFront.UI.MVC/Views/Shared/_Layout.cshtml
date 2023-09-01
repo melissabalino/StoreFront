@@ -32,6 +32,13 @@
     <link href="~/assets/css/style.css" rel="stylesheet">
     <link href="~/assets/css/custom.css" rel="stylesheet" />
 
+    <!-- added Datatables-->
+    <!-- <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"/> -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/r-2.5.0/datatables.min.css" rel="stylesheet">
+
+    <!-- added PagedList -->
+    <link href="~/assets/css/PagedList.css" rel="stylesheet" />
+
     <!-- =======================================================
     * Template Name: Eterna
     * Updated: Jul 27 2023 with Bootstrap v5.3.1
@@ -62,16 +69,20 @@
                     <li class="dropdown">
                         <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="#">Lawn & Garden</a></li>
-                            <li><a href="#">Grocery</a></li>
-                            <li><a href="#">Home Improvement</a></li>
-                            <li><a href="#">Tools</a></li>
-                            <li><a href="#">Special Goods</a></li>
-                            <li><a href="#">Weapons</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Clothing</a></li>
-                            <li><a href="#">Resources</a></li>
-                            <li><a href="#">Livestock</a></li>
+                            <li>
+                                <a asp-action="TiledProducts" asp-route-categoryId="1">Lawn & Garden</a>
+                                </li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="2">Grocery</a></li>
+                            <li>
+                                <a asp-action="TiledProducts" asp-route-categoryId="3">Home Improvement</a>
+                                </li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="4">Tools</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="5">Special Goods</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="6">Weapons</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="7">Accessories</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="8">Clothing</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="9">Resources</a></li>
+                            <li> <a asp-action="TiledProducts" asp-route-categoryId="10">Livestock</a></li>
                             <li><a href="@Url.Action("TiledProducts", "Products")">Shop All</a></li>
                         </ul>
                     </li>
@@ -101,7 +112,7 @@
                     }
                    
 
-                    <li><partial name="_LoginPartial" /></li>
+                   <partial name="_LoginPartial" />
                                            
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -109,9 +120,12 @@
 
         </div>
     </header><!-- End Header -->
+    <div class="container">
+
     @RenderSection("Hero",false)
 
     @RenderBody()
+    </div>
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
@@ -171,6 +185,11 @@
     <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="~/assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="~/assets/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- added datatables.net-->
+    <!-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/r-2.5.0/datatables.min.js"></script>
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>

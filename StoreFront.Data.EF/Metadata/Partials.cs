@@ -62,7 +62,10 @@ namespace StoreFront.Data.EF.Models//.Metadata
     #region User Detail Partial
 
     [ModelMetadataType(typeof(UserDetailMetadata))]
-    public partial class UserDetail { }
+    public partial class UserDetail
+    {
+        public string FullName { get => FirstName + ' ' + LastName; }
+    }
 
     #endregion
 }
