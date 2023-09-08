@@ -23,9 +23,11 @@ namespace StoreFront.UI.MVC.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'StoreFrontContext.Categories'  is null.");
+            //added to see if the category is in use for AjaxDelete
+            ViewBag.Products = _context.Products.Select(x => x.CategoryId).ToList();
+            return _context.Categories != null ?
+                        View(await _context.Categories.ToListAsync()) :
+                        Problem("Entity set 'StoreFrontContext.Categories'  is null.");
         }
 
         // GET: Categories/Details/5
@@ -119,43 +121,58 @@ namespace StoreFront.UI.MVC.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // AJAX - Step 09 - Code the AjaxDelete()
+        //[HttpPost] //same as [AcceptVerbs] but won't work for our example so we use [AcceptVerbs]
+        [AcceptVerbs("POST")]//[AcceptVerbs] lets you set multiple
+        public JsonResult AjaxDelete(int id)
         {
-            if (id == null || _context.Categories == null)
-            {
-                return NotFound();
-            }
+            Category category = _context.Categories.Find(id);
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
+            string message = $"Deleted the category {category.CategoryName} from the database!";
+            return Json(new { id, message });
         }
 
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Categories == null)
-            {
-                return Problem("Entity set 'StoreFrontContext.Categories'  is null.");
-            }
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
-            {
-                _context.Categories.Remove(category);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
+        //#region Original Categories/Delete (GET and POST) - AJAX - Step 01
+        //// GET: Categories/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.Categories == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var category = await _context.Categories
+        //        .FirstOrDefaultAsync(m => m.CategoryId == id);
+        //    if (category == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(category);
+        //}
+
+        //// POST: Categories/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.Categories == null)
+        //    {
+        //        return Problem("Entity set 'StoreFrontContext.Categories'  is null.");
+        //    }
+        //    var category = await _context.Categories.FindAsync(id);
+        //    if (category != null)
+        //    {
+        //        _context.Categories.Remove(category);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //#endregion
         private bool CategoryExists(int id)
         {
           return (_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault();

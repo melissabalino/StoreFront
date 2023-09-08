@@ -9,8 +9,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>@ViewData["Title"] | All Things Stardew Valley</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="This storefront was built as part of my portfolio." name="description">
+    <meta content=".NET Core, ASP.NET, Stardew Valley" name="keywords">
 
     <!-- Favicons -->
     <!-- Bag favicons created by kosonicon - Flaticon at https://www.flaticon.com/free-icons/bag -->
@@ -64,25 +64,25 @@
                 <ul>
                     <li><a class="active" href="@Url.Action("Index","Home")">Home</a></li>
                     
-                    <li><a href="@Url.Action("About","Home")">About</a></li>
+                    @*<li><a href="@Url.Action("About","Home")">About</a></li>*@
                    
                     <li class="dropdown">
                         <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li>
-                                <a asp-action="TiledProducts" asp-route-categoryId="1">Lawn & Garden</a>
+                                <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="1">Lawn & Garden</a>
                                 </li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="2">Grocery</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="2">Grocery</a></li>
                             <li>
-                                <a asp-action="TiledProducts" asp-route-categoryId="3">Home Improvement</a>
+                                <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="3">Home Improvement</a>
                                 </li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="4">Tools</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="5">Special Goods</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="6">Weapons</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="7">Accessories</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="8">Clothing</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="9">Resources</a></li>
-                            <li> <a asp-action="TiledProducts" asp-route-categoryId="10">Livestock</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="4">Tools</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="5">Special Goods</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="6">Weapons</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="7">Accessories</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="8">Clothing</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="9">Resources</a></li>
+                            <li> <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="10">Livestock</a></li>
                             <li><a href="@Url.Action("TiledProducts", "Products")">Shop All</a></li>
                         </ul>
                     </li>
@@ -138,14 +138,14 @@
                         <h4>Useful Links</h4>
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Index","Home")">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("About","Home")">About us</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("TiledProducts","Products")">Shop</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="https://www.stardewvalley.net/" target="_blank" rel="noreferrer">Stardew Valley Game</a></li>
                            </ul>
                            </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <br /><br />
                            <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="contact.html">Contact Us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Contact","Home")">Contact Us</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
                         </ul>
@@ -162,15 +162,14 @@
         </div>
 
         <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Melissa Balino</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
+            <div class="copyright" style="color:#fff;">
+                &copy; Copyright <strong><span>Melissa Balino</span></strong>. All Rights Reserved.<br />
+      
                 <!-- All the links in the footer should remain intact. -->
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/ -->
-                Designed using <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Designed using <a href="https://bootstrapmade.com/" target="_blank" rel="noreferrer">BootstrapMade</a>
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -184,12 +183,17 @@
     <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="~/assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="~/assets/vendor/php-email-form/validate.js"></script>
-
+    @*<script src="~/assets/vendor/php-email-form/validate.js"></script>*@
+ 
 
     <!-- added datatables.net-->
     <!-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/r-2.5.0/datatables.min.js"></script>
+
+    <script src="~/assets/js/jquery-3.4.1.min.js"></script>
+
+    <!-- jQuery Unobtrusive: AJAX - Step 02 - implement jQuery Unobtrusive -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" integrity="sha512-DedNBWPF0hLGUPNbCYfj8qjlEnNE92Fqn7xd3Sscfu7ipy7Zu33unHdugqRD3c4Vj7/yLv+slqZhMls/4Oc7Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
