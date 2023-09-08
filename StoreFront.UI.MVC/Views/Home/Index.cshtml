@@ -28,23 +28,23 @@
                         <div class="carousel-container">
                             <div class="carousel-content">
                                 <h2 class="animate__animated fanimate__adeInDown">About the <span>Valley</span></h2>
-                                <p class="animate__animated animate__fadeInUp">Learn about this award winning valley created by ConcernedApe.</p>
-                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                                <p class="animate__animated animate__fadeInUp">Learn about this award winning game created by ConcernedApe.</p>
+                                <a href="https://www.stardewvalley.net/faq/" target="_blank" rel="noreferrer" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slide 3 -->
+             @*       <!-- Slide 3 -->
                     <div class="carousel-item" style="background-image: url(assets/img/slide/stardew-croppedback.png)">
                         <div class="carousel-container">
                             <div class="carousel-content">
                                 <h2 class="animate__animated animate__fadeInDown">View our <span>Testimonials</span></h2>
                                 <p class="animate__animated animate__fadeInUp">From the residents themselves!</p>
-                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                                <a href="@Url.Action("About","Home")" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
                             </div>
                         </div>
                     </div>
-
+*@
                 </div>
 
                 <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
@@ -70,21 +70,21 @@
                 <div class="col-lg-4">
                     <div class="icon-box">
                         <i class="bi bi-basket-fill"></i>
-                        <h3><a href="">Grocery</a></h3>
+                        <h3><a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="2">Grocery</a></h3>
                         <p>Support your local grocers! Shop the freshest produce here!</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="icon-box">
                         <i class="bi bi-flower1"></i>
-                        <h3><a href="">Lawn & Garden</a></h3>
+                        <h3><a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="1">Lawn & Garden</a></h3>
                         <p>Is it time to level up your lawn & garden? Shop our best quality seeds and fertilizers here!</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="icon-box">
                         <i class="bi bi-tools"></i>
-                        <h3><a href="">Tools</a></h3>
+                        <h3><a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="4">Tools</a></h3>
                         <p>Looking to make upgrades to your home? Check out our award-winning wallpaper selections!</p>
                     </div>
                 </div>
@@ -92,6 +92,100 @@
 
         </div>
     </section><!-- End Featured Section -->
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Testimonials</h2>
+                @*<p>Hear what our loyal customers have to say!</p>*@
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item">
+                        <img src="~/assets/img/testimonials/Governor.png" class="testimonial-img" alt="Governor">
+                        <h3>The Governor</h3>
+                        <h4>Governor of Pelican Town</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            It's lovely to see economic development in the valley. I love supporting our local All Things Stardew Valley shop!
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item mt-4 mt-lg-0">
+                        <img src="~/assets/img/testimonials/Lewis.png" class="testimonial-img" alt="Mayor Lewis">
+                        <h3>Mayor Lewis</h3>
+                        <h4>Mayor of Pelican Town</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            All our local businesses are great! Especially everything from Marnie's Ranch!
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item mt-4">
+                        <img src="~/assets/img/testimonials/Maru.png" class="testimonial-img" alt="Maru">
+                        <h3>Maru</h3>
+                        <h4>FT Inventor & PT Nurse</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            This shop is great. I can find all supplies I need for my upcoming projects.
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item mt-4">
+                        <img src="~/assets/img/testimonials/Bob Ross.png" class="testimonial-img" alt="Bob Ross">
+                        <h3>Bob Ross</h3>
+                        <h4>FT Painter & PT Rancher</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            You can buy happy little seeds to plant happy little trees.
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item mt-4">
+                        <img src="~/assets/img/testimonials/Dwarf.png" class="testimonial-img" alt="Dwarf">
+                        <h3>Dwarf</h3>
+                        <h4>Miner</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                           Teba Hanp Eno Bel Eno Solok Teba!
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="testimonial-item mt-4">
+                        <img src="~/assets/img/testimonials/Emily.png" class="testimonial-img" alt="Emily">
+                        <h3>Emily</h3>
+                        <h4>Bartender</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                           Two words: Pizza and Beer. Nuff said.
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Testimonials Section -->
+
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
         <div class="container">

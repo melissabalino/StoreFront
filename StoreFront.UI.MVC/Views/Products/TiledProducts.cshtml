@@ -18,35 +18,40 @@
     </p>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="sidebar">
-                <h3 class="sidebar-title">Search</h3>
-                <div class="sidebar-item search-form">
-                    <form asp-action="TiledProducts" method="get">
-                        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="text-center" placeholder="Search Products...">
-                        <button type="submit"><i class="bi bi-search"></i></button>
+    <div class="row text-center mb-3">
+
+  
+           
+                <form asp-action="TiledProducts" method="get">
+                    <label class="control-label d-block">Search</label>
+
+            <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="text-center col-md-2" style="color:#6c757d;" placeholder="Search Products...">
+
+                    <button type="submit"><i class="bi bi-search"></i></button>
+
+
 
                     <label for="categoryId" class="control-label d-block">Filter By Category</label>
-                    <select name="categoryId" class="form-control d-inline-block text-center mb-3" asp-items="@ViewBag.CategoryId">
-                        <option value="0">[Choose a Category]</option>
+            <select name="categoryId" class="text-center col-md-2" style="color:#6c757d;" asp-items="@ViewBag.CategoryId">
+                <option value="0">[Select a Category]</option>
                     </select>
-                        <button type="submit"><i class="bi bi-search d-inline-block"></i></button>
-                    </form>
-                </div>
-               
-                   @* <p>Categories: </p>
-                    <ul>
-                        @foreach (var cat in ViewBag.Categories)
-                        {
-                            <li>
-                                <a asp-action="TiledProducts" asp-route-categoryId="@cat.CategoryId">@cat.CategoryName</a>
-                            </li>
-                        }
-                    </ul>*@
-              
-            </div>
-        </div>
+                    <button type="submit"><i class="bi bi-search"></i></button>
+
+                </form>
+      
+
+            @* <p>Categories: </p>
+            <ul>
+            @foreach (var cat in ViewBag.Categories)
+            {
+            <li>
+            <a asp-action="TiledProducts" asp-route-categoryId="@cat.CategoryId">@cat.CategoryName</a>
+            </li>
+            }
+            </ul>*@
+
+
+
     </div>
 
     <div class="container">

@@ -18,7 +18,7 @@ namespace StoreFront.Data.EF.Models
         public int? SeasonId { get; set; }
         public int? MerchantId { get; set; }
         public string? ProductImage { get; set; }
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }//removed ? from int?
 
         public virtual Category? Category { get; set; }
         public virtual Merchant? Merchant { get; set; }

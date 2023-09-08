@@ -170,7 +170,7 @@ namespace StoreFront.Data.EF.Models//.Metadata
 
         //Foreign Key
         [Display(Name = "Category Name")]
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }//removed ? from int?
     }
 
     #endregion

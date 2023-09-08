@@ -8,3 +8,25 @@ select.form-control {
 .prodview {
     background-color: #fff;
 }
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #0c3c6c;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link .active,
+.nav-link .active:focus,
+.nav-link li:hover {
+    color: #0c3c6c;
+    font-weight: 800;
+}
+
+
