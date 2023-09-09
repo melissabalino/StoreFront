@@ -3,93 +3,106 @@
 @{
     ViewData["Title"] = "Shop Products";
 }
-<div class="text-center">
+<div class="text-center pt-3">
 
-<h1>Our Products</h1>
+    <h1>Our Products</h1>
 
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-    <a asp-action="Create">Add New Product</a>
-    }
-    <a asp-action="TiledProducts">Tiled View</a>
-</p>
-</div>
-<div class="container">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-         @*   <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Merchant)
-            </th>
-           @* <th>
-                @Html.DisplayNameFor(model => model.ProductStatus)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Season)
-            </th>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
             @if (User.IsInRole("Admin"))
             {
-            <th></th>
-                
+                <a asp-action="Create" class="btn btn-outline-success">Add New Product</a>
             }
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                <img src="~/assets/img//products/t_@item.ProductImage" alt="@item.ProductName"/>
-                @*@Html.DisplayFor(modelItem => item.ProductImage)*@
-            </td>
-          @*  <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Merchant.MerchantName)
-            </td>
-          @*  <td>
-                @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Season.SeasonCategory)
-            </td>
-            @if (User.IsInRole("Admin"))
+            </div>
+            
+            <div class="col-lg-3 offset-6">
+            <a asp-action="TiledProducts" class="btn btn-outline-primary">Switch to Customer View</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductImage)
+                </th>
+                @*   <th>
+                @Html.DisplayNameFor(model => model.Category)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Merchant)
+                </th>
+                @* <th>
+                @Html.DisplayNameFor(model => model.ProductStatus)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Season)
+                </th>
+                @if (User.IsInRole("Admin"))
                 {
-                    
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                @*<a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
+                    <th></th>
+
                 }
-        </tr>
-}
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        <a asp-action="Details" asp-route-id="@item.ProductId">
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        <img src="~/assets/img//products/t_@item.ProductImage" alt="@item.ProductName" />
+                        @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+                    </td>
+                    @*  <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Merchant.MerchantName)
+                    </td>
+                    @*  <td>
+                @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Season.SeasonCategory)
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </div>

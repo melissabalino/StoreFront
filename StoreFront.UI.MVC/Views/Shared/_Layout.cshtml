@@ -66,8 +66,19 @@
                     
                     @*<li><a href="@Url.Action("About","Home")">About</a></li>*@
                    
+
+
                     <li class="dropdown">
-                        <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
+
+                          @if (User.IsInRole("Admin"))
+                    {
+                            <a href="@Url.Action("Index", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
+
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("TiledProducts", "Products")"><span>Shop</span> <i class="bi bi-chevron-down"></i></a>
+                        }
                         <ul>
                             <li>
                                 <a asp-action="TiledProducts" asp-controller="Products" asp-route-categoryId="1">Lawn & Garden</a>
@@ -86,6 +97,9 @@
                             <li><a href="@Url.Action("TiledProducts", "Products")">Shop All</a></li>
                         </ul>
                     </li>
+
+
+
                    @if (signInManager.IsSignedIn(User))
                     {
                         
@@ -139,15 +153,15 @@
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Index","Home")">Home</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("TiledProducts","Products")">Shop</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="https://www.stardewvalley.net/" target="_blank" rel="noreferrer">Stardew Valley Game</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="https://www.stardewvalley.net/" target="_blank" rel="noreferrer">About Stardew Valley</a></li>
                            </ul>
                            </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <br /><br />
                            <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Contact","Home")">Contact Us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("TermsOfService","Home")">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Privacy","Home")">Privacy policy</a></li>
                         </ul>
                     </div>
 

@@ -6,7 +6,7 @@
 {
 @*<ul class="navbar-nav">*@
     <li>
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="bi bi-person-square" style="font-size: 18px"></i></a>
     </li>
     <li>
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
