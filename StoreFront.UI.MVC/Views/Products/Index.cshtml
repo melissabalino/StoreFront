@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Shop Products";
 }
-<div class="text-center">
+<div class="text-center pt-3">
 
-<h1>Our Products</h1>
+    <h1>Our Products</h1>
+
+
 
     <div class="container">
         <div class="row">
@@ -22,46 +24,49 @@
         </div>
     </div>
 
+
 </div>
 
 
 <div class="container">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-         @*   <th>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductImage)
+                </th>
+                @*   <th>
                 @Html.DisplayNameFor(model => model.Category)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Merchant)
-            </th>
-           @* <th>
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Merchant)
+                </th>
+                @* <th>
                 @Html.DisplayNameFor(model => model.ProductStatus)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Season)
-            </th>
-            @if (User.IsInRole("Admin"))
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Season)
+                </th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th></th>
+
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-            <th></th>
-                
-            }
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
+
         <tr>
             <td>
                         <a asp-action="Details" asp-route-id="@item.ProductId"> @Html.DisplayFor(modelItem => item.ProductName)</a>
@@ -78,13 +83,16 @@
                 @*@Html.DisplayFor(modelItem => item.ProductImage)*@
             </td>
           @*  <td>
+
+
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Merchant.MerchantName)
-            </td>
-          @*  <td>
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Merchant.MerchantName)
+                    </td>
+                    @*  <td>
                 @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
+
             </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Season.SeasonCategory)

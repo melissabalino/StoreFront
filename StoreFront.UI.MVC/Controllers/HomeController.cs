@@ -91,7 +91,10 @@ namespace StoreFront.UI.MVC.Controllers
             return View("EmailConfirmation", cvm);
 
         }
-
+        public IActionResult TermsOfService()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
