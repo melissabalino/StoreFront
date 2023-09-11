@@ -46,11 +46,13 @@ namespace StoreFront.UI.MVC.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TiledProducts(string searchTerm, int categoryId = 0, int page = 1)
         {
-            var products = _context.Products.Where(p => p.ProductStatusId != 5)
+          
+            var products = _context.Products.Where(p => p.ProductStatusId != 5 && p.SeasonId == 1 || p.SeasonId == 4)
                 .Include(p => p.Category)
                 .Include(p => p.Merchant)
                 .Include(p => p.Season)
                 .Include(p => p.OrderDetails).ToList();
+
 
             #region Category Filter
             ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "CategoryName", categoryId);

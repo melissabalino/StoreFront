@@ -13,13 +13,13 @@
         <div class="row">
             @if (User.IsInRole("Admin"))
             {
-            <div class="col-lg-3">
-                <a asp-action="Create" class="btn btn-outline-success">Add New Product</a>
-            </div>
-            
-            <div class="col-lg-3 offset-6">
-            <a asp-action="TiledProducts" class="btn btn-outline-primary">Switch to Customer View</a>
-            </div>
+                <div class="col-lg-3">
+                    <a asp-action="Create" class="btn btn-outline-success">Add New Product</a>
+                </div>
+
+                <div class="col-lg-3 offset-6">
+                    <a asp-action="TiledProducts" class="btn btn-outline-primary">Switch to Customer View</a>
+                </div>
             }
         </div>
     </div>
@@ -67,22 +67,23 @@
             @foreach (var item in Model)
             {
 
-        <tr>
-            <td>
+                <tr>
+                    <td>
                         <a asp-action="Details" asp-route-id="@item.ProductId"> @Html.DisplayFor(modelItem => item.ProductName)</a>
-               
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                <img src="~/assets/img//products/t_@item.ProductImage" alt="@item.ProductName"/>
-                @*@Html.DisplayFor(modelItem => item.ProductImage)*@
-            </td>
-          @*  <td>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        <img src="~/assets/img//products/t_@item.ProductImage" alt="@item.ProductName" />
+                        @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+                    </td>
+                    @*  <td>
+
 
 
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
@@ -93,21 +94,21 @@
                     @*  <td>
                 @Html.DisplayFor(modelItem => item.ProductStatus.StatusName)
 
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Season.SeasonCategory)
-            </td>
-            @if (User.IsInRole("Admin"))
-                {
-                    
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-                }
-        </tr>
-}
-    </tbody>
-</table>
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Season.SeasonCategory)
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </div>
