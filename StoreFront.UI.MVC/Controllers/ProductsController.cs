@@ -44,7 +44,7 @@ namespace StoreFront.UI.MVC.Controllers
 
         // GET: Products/TiledProducts
         [AllowAnonymous]
-        public async Task<IActionResult> TiledProducts(string searchTerm, int categoryId = 0, int page = 1)
+        public async Task<IActionResult> TiledProducts(string searchTerm, int categoryId = 0, int merchantId = 0, int page = 1)
         {
           
             var products = _context.Products.Where(p => p.ProductStatusId != 5 && p.SeasonId == 1 || p.SeasonId == 4)
@@ -52,19 +52,6 @@ namespace StoreFront.UI.MVC.Controllers
                 .Include(p => p.Merchant)
                 .Include(p => p.Season)
                 .Include(p => p.OrderDetails).ToList();
-
-
-            #region Category Filter
-            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "CategoryName", categoryId);
-            ViewBag.Categories = await _context.Categories.ToListAsync();
-            ViewBag.Category = 0;
-
-            if (categoryId != 0)
-            {
-                products = products.Where(p => p.CategoryId == categoryId).ToList();
-                ViewBag.Category = categoryId;
-            }
-            #endregion
 
             #region search filter
             if (!string.IsNullOrEmpty(searchTerm))
@@ -78,6 +65,31 @@ namespace StoreFront.UI.MVC.Controllers
                 ViewBag.SearchTerm = searchTerm;
 
             }
+            #endregion
+
+            #region Category Filter
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "CategoryName", categoryId);
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.Category = 0;
+
+            if (categoryId != 0)
+            {
+                products = products.Where(p => p.CategoryId == categoryId).ToList();
+                ViewBag.Category = categoryId;
+            }
+            #endregion
+
+            #region Merchant Filter
+            ViewBag.MerchantId = new SelectList(_context.Merchants, "MerchantId", "MerchantName", merchantId);
+            ViewBag.Merchants = await _context.Merchants.ToListAsync();
+            ViewBag.Merchant = 0;
+
+            if (merchantId != 0)
+            {
+                products = products.Where(p => p.MerchantId == merchantId).ToList();
+                ViewBag.Merchant = merchantId;
+            }
+
             #endregion
 
             return View(products.ToPagedList(page, 24));

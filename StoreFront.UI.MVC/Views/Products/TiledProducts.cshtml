@@ -8,100 +8,96 @@
     ViewData["Title"] = "Tiled Products";
 }
 
-    
+
 <div class="pt-3" style="text-align: center;">
 
-<div class="col-lg-3 offset-9">
+    <div class="col-lg-3 offset-9">
         @if (User.IsInRole("Admin"))
         {
-            
+
             <a asp-action="Index" class="btn btn-outline-primary">Switch to Table View</a>
-            
+
         }
-        </div>
+    </div>
     <h1>Our Products</h1>
 </div>
 
-
-<div class="container">
+<div class="sidebar">
     <div class="row text-center mb-3">
 
-                <form asp-action="TiledProducts" method="get">
-                    <label class="control-label d-block">Search</label>
+        <form asp-action="TiledProducts" method="get">
+            <label class="control-label d-block">Search</label>
 
             <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="text-center col-md-2" style="color:#6c757d;" placeholder="Search Products...">
 
-                    <button type="submit"><i class="bi bi-search"></i></button>
+            <button type="submit"><i class="bi bi-search"></i></button>
 
 
-
-                    <label for="categoryId" class="control-label d-block">Filter By Category</label>
+            <label for="categoryId" class="control-label d-block">Filter By Category</label>
             <select name="categoryId" class="text-center col-md-2" style="color:#6c757d;" asp-items="@ViewBag.CategoryId">
                 <option value="0">[Select a Category]</option>
-                    </select>
-                    <button type="submit"><i class="bi bi-search"></i></button>
-
-                </form>
-      
-
-            @* <p>Categories: </p>
-            <ul>
-            @foreach (var cat in ViewBag.Categories)
-            {
-            <li>
-            <a asp-action="TiledProducts" asp-route-categoryId="@cat.CategoryId">@cat.CategoryName</a>
-            </li>
-            }
-            </ul>*@
+            </select>
+            <button type="submit"><i class="bi bi-search"></i></button>
 
 
+            <label for="merchantId" class="control-label d-block">Filter By Merchant</label>
+            <select name="merchantId" class="text-center col-md-2" style="color:#6c757d;" asp-items="@ViewBag.MerchantId">
+                <option value="0">[Select a Merchant]</option>
+            </select>
+            <button type="submit"><i class="bi bi-search"></i></button>
+
+
+        </form>
 
     </div>
+</div>
 
-    <div class="container">
-        <div class="row g-2 d-flex justify-content-center">
-            @foreach (var item in Model)
-            {
-                <div class="m-2 pt-3 pb-3 col-sm-4 col-md-3 col-lg-2 col-centered text-center border" style="border-radius: 25px 25px;">
-                    <div class="box">
-                        <div class="option_container">
 
-                            <div class="img-box">
-                                <img src="~/assets/img/products/@item.ProductImage" alt="@item.ProductName" longdesc="@item.ProductDescription" />
-                            </div>
-                            <div class="options">
-                                <a asp-action="Details" asp-route-id="@item.ProductId" class="option1">
-                                    @item.ProductName
-                                </a>
-                            </div>
 
-                            <div class="detail-box">
+<div class="container">
+    <div class="row g-2 d-flex justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="m-2 pt-3 pb-3 col-sm-4 col-md-3 col-lg-2 col-centered text-center border" style="border-radius: 25px 25px;">
+                <div class="box">
+                    <div class="option_container">
 
-                                <h6>
-                                    @Html.DisplayFor(modelItem => item.ProductPrice)
-                                </h6>
-                                <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.ProductId" class="option2 btn btn-warning">
-                                    Add to Cart
-                                </a>
-                            </div>
-
+                        <div class="img-box">
+                            <img src="~/assets/img/products/@item.ProductImage" alt="@item.ProductName" longdesc="@item.ProductDescription" />
                         </div>
+                        <div class="options">
+                            <a asp-action="Details" asp-route-id="@item.ProductId" class="option1">
+                                @item.ProductName
+                            </a>
+                        </div>
+
+                        <div class="detail-box">
+
+                            <h6>
+                                @Html.DisplayFor(modelItem => item.ProductPrice)
+                            </h6>
+                            <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.ProductId" class="option2 btn btn-warning">
+                                Add to Cart
+                            </a>
+                        </div>
+
                     </div>
                 </div>
-            }
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="w-50 mx-auto text-center">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            <div class="w-100">
-                @Html.PagedListPager(
-                Model,
-                page => Url.Action("TiledProducts", new {
-                page, searchTerm = ViewBag.SearchTerm, categoryId = ViewBag.CategoryId
-                })
-                )
             </div>
+        }
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="w-50 mx-auto text-center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <div class="w-100">
+            @Html.PagedListPager(
+            Model,
+            page => Url.Action("TiledProducts", new {
+            page, searchTerm = ViewBag.SearchTerm, categoryId = ViewBag.CategoryId
+            })
+            )
         </div>
     </div>
 </div>
