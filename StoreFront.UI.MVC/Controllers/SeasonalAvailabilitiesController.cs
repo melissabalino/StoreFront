@@ -24,9 +24,10 @@ namespace StoreFront.UI.MVC.Controllers
         // GET: SeasonalAvailabilities
         public async Task<IActionResult> Index()
         {
-              return _context.SeasonalAvailabilities != null ? 
-                          View(await _context.SeasonalAvailabilities.ToListAsync()) :
-                          Problem("Entity set 'StoreFrontContext.SeasonalAvailabilities'  is null.");
+            ViewBag.Products = _context.Products.Select(x => x.SeasonId).ToList();
+            return _context.SeasonalAvailabilities != null ?
+                        View(await _context.SeasonalAvailabilities.ToListAsync()) :
+                        Problem("Entity set 'StoreFrontContext.SeasonalAvailabilities'  is null.");
         }
 
         // GET: SeasonalAvailabilities/Details/5
@@ -120,43 +121,56 @@ namespace StoreFront.UI.MVC.Controllers
             return View(seasonalAvailability);
         }
 
-        // GET: SeasonalAvailabilities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [AcceptVerbs("POST")]//[AcceptVerbs] lets you set multiple
+        public JsonResult AjaxDelete(int id)
         {
-            if (id == null || _context.SeasonalAvailabilities == null)
-            {
-                return NotFound();
-            }
+            SeasonalAvailability seasonalAvailability = _context.SeasonalAvailabilities.Find(id);
+            _context.SeasonalAvailabilities.Remove(seasonalAvailability);
+            _context.SaveChanges();
 
-            var seasonalAvailability = await _context.SeasonalAvailabilities
-                .FirstOrDefaultAsync(m => m.SeasonId == id);
-            if (seasonalAvailability == null)
-            {
-                return NotFound();
-            }
-
-            return View(seasonalAvailability);
+            string message = $"Deleted the seasonal availability, {seasonalAvailability.SeasonCategory}, from the database!";
+            return Json(new { id, message });
         }
 
-        // POST: SeasonalAvailabilities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.SeasonalAvailabilities == null)
-            {
-                return Problem("Entity set 'StoreFrontContext.SeasonalAvailabilities'  is null.");
-            }
-            var seasonalAvailability = await _context.SeasonalAvailabilities.FindAsync(id);
-            if (seasonalAvailability != null)
-            {
-                _context.SeasonalAvailabilities.Remove(seasonalAvailability);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
+        //#region original SeasonalAvailabilities/Delete (GET and POST) 
+        //// GET: SeasonalAvailabilities/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.SeasonalAvailabilities == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var seasonalAvailability = await _context.SeasonalAvailabilities
+        //        .FirstOrDefaultAsync(m => m.SeasonId == id);
+        //    if (seasonalAvailability == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(seasonalAvailability);
+        //}
+
+        //// POST: SeasonalAvailabilities/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.SeasonalAvailabilities == null)
+        //    {
+        //        return Problem("Entity set 'StoreFrontContext.SeasonalAvailabilities'  is null.");
+        //    }
+        //    var seasonalAvailability = await _context.SeasonalAvailabilities.FindAsync(id);
+        //    if (seasonalAvailability != null)
+        //    {
+        //        _context.SeasonalAvailabilities.Remove(seasonalAvailability);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //#endregion
         private bool SeasonalAvailabilityExists(int id)
         {
           return (_context.SeasonalAvailabilities?.Any(e => e.SeasonId == id)).GetValueOrDefault();

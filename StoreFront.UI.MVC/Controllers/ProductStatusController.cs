@@ -24,9 +24,10 @@ namespace StoreFront.UI.MVC.Controllers
         // GET: ProductStatus
         public async Task<IActionResult> Index()
         {
-              return _context.ProductStatuses != null ? 
-                          View(await _context.ProductStatuses.ToListAsync()) :
-                          Problem("Entity set 'StoreFrontContext.ProductStatuses'  is null.");
+            ViewBag.Products = _context.Products.Select(x => x.ProductStatusId).ToList();
+            return _context.ProductStatuses != null ?
+                        View(await _context.ProductStatuses.ToListAsync()) :
+                        Problem("Entity set 'StoreFrontContext.ProductStatuses'  is null.");
         }
 
         // GET: ProductStatus/Details/5
@@ -120,42 +121,55 @@ namespace StoreFront.UI.MVC.Controllers
             return View(productStatus);
         }
 
-        // GET: ProductStatus/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [AcceptVerbs("POST")]//[AcceptVerbs] lets you set multiple
+        public JsonResult AjaxDelete(int id)
         {
-            if (id == null || _context.ProductStatuses == null)
-            {
-                return NotFound();
-            }
+            ProductStatus productStatus = _context.ProductStatuses.Find(id);
+            _context.ProductStatuses.Remove(productStatus);
+            _context.SaveChanges();
 
-            var productStatus = await _context.ProductStatuses
-                .FirstOrDefaultAsync(m => m.ProductStatusId == id);
-            if (productStatus == null)
-            {
-                return NotFound();
-            }
-
-            return View(productStatus);
+            string message = $"Deleted the Status, {productStatus.StatusName}, from the database!";
+            return Json(new { id, message });
         }
 
-        // POST: ProductStatus/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.ProductStatuses == null)
-            {
-                return Problem("Entity set 'StoreFrontContext.ProductStatuses'  is null.");
-            }
-            var productStatus = await _context.ProductStatuses.FindAsync(id);
-            if (productStatus != null)
-            {
-                _context.ProductStatuses.Remove(productStatus);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //#region original ProductStatus/Delete (Get and Post)
+        //// GET: ProductStatus/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.ProductStatuses == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var productStatus = await _context.ProductStatuses
+        //        .FirstOrDefaultAsync(m => m.ProductStatusId == id);
+        //    if (productStatus == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(productStatus);
+        //}
+
+        //// POST: ProductStatus/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.ProductStatuses == null)
+        //    {
+        //        return Problem("Entity set 'StoreFrontContext.ProductStatuses'  is null.");
+        //    }
+        //    var productStatus = await _context.ProductStatuses.FindAsync(id);
+        //    if (productStatus != null)
+        //    {
+        //        _context.ProductStatuses.Remove(productStatus);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //#endregion
 
         private bool ProductStatusExists(int id)
         {

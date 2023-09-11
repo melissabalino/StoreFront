@@ -9,7 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<div class="row">
+    <div class="mx-auto col-md-6">
+        <div id="MessageContent" class="text-center"></div>
+    </div>
+</div>
+
+<table class="table" id="SeasonalAvailabilitiesTable">
     <thead>
         <tr>
             <th>
@@ -23,19 +29,57 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr id="SeasonalAvailability-@item.SeasonId">
             <td>
-                @Html.DisplayFor(modelItem => item.SeasonCategory)
+                    <a asp-action="Details" asp-route-id="@item.SeasonId"> @Html.DisplayFor(modelItem => item.SeasonCategory)</a>
+               
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SeasonDescription)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SeasonId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SeasonId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SeasonId">Delete</a>
+
+                @*<a asp-action="Delete" asp-route-id="@item.SeasonId">Delete</a>*@
+
+                    @if (ViewBag.Products.Contains(item.SeasonId))
+                    {
+                        <a disabled="disabled" class="text-danger">In Use</a>
+                    }
+                    else
+                    {
+                        <a asp-action="AjaxDelete" asp-route-id="@item.SeasonId"
+                           data-ajax="true"
+                           data-ajax-confirm="Are you sure you want to delete @item.SeasonCategory?"
+                           data-ajax-failure="deleteFailed"
+                           data-ajax-success="deleteConfirmed"
+                           data-ajax-method="POST">
+                            Delete
+                        </a>
+                    }
             </td>
         </tr>
 }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        //#region AJAX Delete
+        //AJAX - Step 08 - code the deleteConfirmed() and deleteFailed() functions
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the table
+            let rowId = "#SeasonalAvailability-" + response.id;
+            console.log(rowId);
+            $("#SeasonalAvailabilitesTable").find(rowId).remove();
+
+            //display the status message
+            $("#MessageContent").removeClass().addClass('alert alert-success').text(response.message);
+        }
+
+        function deleteFailed(response, status, data) {
+            $("#MessageContent").removeClass().addClass('alert alert-danger').text('Delete unsuccessful.');
+
+        }
+                        //#endregion
+    </script>
+}

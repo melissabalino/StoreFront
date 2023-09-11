@@ -9,7 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<!-- AJAX - Step 06 - Add the message content div. -->
+<div class="row">
+    <div class="mx-auto col-md-6">
+        <div id="MessageContent" class="text-center"></div>
+    </div>
+</div>
+
+<table class="table" id="ProductStatusesTable">
     <thead>
         <tr>
             <th>
@@ -20,15 +27,51 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr id="ProductStatus-@item.ProductStatusId">
             <td>
                     <a asp-action="Details" asp-route-id="@item.ProductStatusId"> @Html.DisplayFor(modelItem => item.StatusName)</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductStatusId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductStatusId">Delete</a>
+                @*<a asp-action="Delete" asp-route-id="@item.ProductStatusId">Delete</a>*@
+                    @if (ViewBag.Products.Contains(item.ProductStatusId))
+                    {
+                        <a disabled="disabled" class="text-danger">In Use</a>
+                    }
+                    else
+                    {
+                        <a asp-action="AjaxDelete" asp-route-id="@item.ProductStatusId"
+                           data-ajax="true"
+                           data-ajax-confirm="Are you sure you want to delete @item.StatusName?"
+                           data-ajax-failure="deleteFailed"
+                           data-ajax-success="deleteConfirmed"
+                           data-ajax-method="POST">
+                            Delete
+                        </a>
+                    }
             </td>
         </tr>
 }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        //#region AJAX Delete
+        //AJAX - Step 08 - code the deleteConfirmed() and deleteFailed() functions
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the table
+            let rowId = "#ProductStatus-" + response.id;
+            console.log(rowId);
+            $("#ProductStatusesTable").find(rowId).remove();
+
+            //display the status message
+            $("#MessageContent").removeClass().addClass('alert alert-success').text(response.message);
+        }
+
+        function deleteFailed(response, status, data) {
+            $("#MessageContent").removeClass().addClass('alert alert-danger').text('Delete unsuccessful.');
+
+        }
+                        //#endregion
+    </script>
+}
