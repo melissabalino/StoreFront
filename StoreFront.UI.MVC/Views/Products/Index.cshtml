@@ -7,14 +7,24 @@
 
 <h1>Our Products</h1>
 
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-    <a asp-action="Create">Add New Product</a>
-    }
-    <a asp-action="TiledProducts">Tiled View</a>
-</p>
+    <div class="container">
+        <div class="row">
+            @if (User.IsInRole("Admin"))
+            {
+            <div class="col-lg-3">
+                <a asp-action="Create" class="btn btn-outline-success">Add New Product</a>
+            </div>
+            
+            <div class="col-lg-3 offset-6">
+            <a asp-action="TiledProducts" class="btn btn-outline-primary">Switch to Customer View</a>
+            </div>
+            }
+        </div>
+    </div>
+
 </div>
+
+
 <div class="container">
 <table class="table">
     <thead>

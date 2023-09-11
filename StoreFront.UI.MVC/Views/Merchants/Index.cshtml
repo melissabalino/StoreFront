@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table" id="MerchantsTable">
     <thead>
         <tr>
             <th>
@@ -38,9 +38,10 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr id="Merchant-@item.MerchantId">
             <td>
-                @Html.DisplayFor(modelItem => item.MerchantName)
+                    <a asp-action="Details" asp-route-id="@item.MerchantId">@Html.DisplayFor(modelItem => item.MerchantName)</a>
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MerchantAddress1)
@@ -62,10 +63,44 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MerchantId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MerchantId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MerchantId">Delete</a>
+                    @if (ViewBag.Products.Contains(item.MerchantId))
+                    {
+                        <a disabled="disabled" class="text-danger">In Use</a>
+                    }
+                    else
+                    {
+                        <a asp-action="AjaxDelete" asp-route-id="@item.MerchantId"
+                           data-ajax="true"
+                           data-ajax-confirm="Are you sure you want to delete @item.MerchantName?"
+                           data-ajax-failure="deleteFailed"
+                           data-ajax-success="deleteConfirmed"
+                           data-ajax-method="POST">
+                            Delete
+                        </a>
+                    }
             </td>
         </tr>
 }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        //#region AJAX Delete
+        //AJAX - Step 08 - code the deleteConfirmed() and deleteFailed() functions
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the table
+            let rowId = "#Merchant-" + response.id;
+            console.log(rowId);
+            $("#MerchantsTable").find(rowId).remove();
+
+            //display the status message
+            $("#MessageContent").removeClass().addClass('alert alert-success').text(response.message);
+        }
+
+        function deleteFailed(response, status, data) {
+            $("#MessageContent").removeClass().addClass('alert alert-danger').text('Delete unsuccessful.');
+
+        }
+                        //#endregion
+    </script>
+}

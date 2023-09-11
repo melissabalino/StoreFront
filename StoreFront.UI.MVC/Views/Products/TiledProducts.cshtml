@@ -7,21 +7,25 @@
 @{
     ViewData["Title"] = "Tiled Products";
 }
+
+    
 <div class="pt-3" style="text-align: center;">
-    <h1>Our Products</h1>
-    <p align="center">
+
+<div class="col-lg-3 offset-9">
         @if (User.IsInRole("Admin"))
         {
-            <a asp-action="Create">Add New Product</a>
-            <a asp-action="Index">Table View</a>
+            
+            <a asp-action="Index" class="btn btn-outline-primary">Switch to Table View</a>
+            
         }
-    </p>
+        </div>
+    <h1>Our Products</h1>
 </div>
+
+
 <div class="container">
     <div class="row text-center mb-3">
 
-  
-           
                 <form asp-action="TiledProducts" method="get">
                     <label class="control-label d-block">Search</label>
 

@@ -24,9 +24,10 @@ namespace StoreFront.UI.MVC.Controllers
         // GET: Merchants
         public async Task<IActionResult> Index()
         {
-              return _context.Merchants != null ? 
-                          View(await _context.Merchants.ToListAsync()) :
-                          Problem("Entity set 'StoreFrontContext.Merchants'  is null.");
+            ViewBag.Products = _context.Products.Select(x => x.MerchantId).ToList();
+            return _context.Merchants != null ?
+                        View(await _context.Merchants.ToListAsync()) :
+                        Problem("Entity set 'StoreFrontContext.Merchants'  is null.");
         }
 
         // GET: Merchants/Details/5
@@ -120,43 +121,55 @@ namespace StoreFront.UI.MVC.Controllers
             return View(merchant);
         }
 
-        // GET: Merchants/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [AcceptVerbs("POST")]
+        public JsonResult AjaxDelete(int id)
         {
-            if (id == null || _context.Merchants == null)
-            {
-                return NotFound();
-            }
+           Merchant merchant = _context.Merchants.Find(id);
+            _context.Merchants.Remove(merchant);
+            _context.SaveChanges();
 
-            var merchant = await _context.Merchants
-                .FirstOrDefaultAsync(m => m.MerchantId == id);
-            if (merchant == null)
-            {
-                return NotFound();
-            }
-
-            return View(merchant);
+            string message = $"Deleted the merchant, {merchant.MerchantName}, from the database!";
+            return Json(new { id, message });
         }
 
-        // POST: Merchants/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Merchants == null)
-            {
-                return Problem("Entity set 'StoreFrontContext.Merchants'  is null.");
-            }
-            var merchant = await _context.Merchants.FindAsync(id);
-            if (merchant != null)
-            {
-                _context.Merchants.Remove(merchant);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //#region original merchant/delete (get and post) - ajax - step 01
+        //// GET: Merchants/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.Merchants == null)
+        //    {
+        //        return NotFound();
+        //    }
 
+        //    var merchant = await _context.Merchants
+        //        .FirstOrDefaultAsync(m => m.MerchantId == id);
+        //    if (merchant == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(merchant);
+        //}
+
+        //// POST: Merchants/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.Merchants == null)
+        //    {
+        //        return Problem("Entity set 'StoreFrontContext.Merchants'  is null.");
+        //    }
+        //    var merchant = await _context.Merchants.FindAsync(id);
+        //    if (merchant != null)
+        //    {
+        //        _context.Merchants.Remove(merchant);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        // #endregion
         private bool MerchantExists(int id)
         {
           return (_context.Merchants?.Any(e => e.MerchantId == id)).GetValueOrDefault();
